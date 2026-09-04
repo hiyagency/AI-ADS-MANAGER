@@ -1,0 +1,1 @@
+export function MetricCard({label,value,accent}:{label:string;value:string;accent?:boolean}){return <div className="rounded-lg border border-line bg-elevated p-4"><p className="text-[10px] font-bold tracking-[.12em] text-muted">{label}</p><p className={`mt-2 text-xl font-semibold tracking-[-.03em] ${accent?'text-[#8d81f5]':''}`}>{value}</p></div>}

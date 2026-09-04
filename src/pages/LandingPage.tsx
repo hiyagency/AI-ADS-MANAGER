@@ -1,0 +1,10 @@
+import { Benefits } from '../components/landing/Benefits'
+import { BudgetTransparency } from '../components/landing/BudgetTransparency'
+import { FinalCTA } from '../components/landing/FinalCTA'
+import { Hero } from '../components/landing/Hero'
+import { HowItWorks } from '../components/landing/HowItWorks'
+import { PricingExplorer } from '../components/landing/PricingExplorer'
+import { PerformancePreview } from '../components/landing/PerformancePreview'
+import { Footer } from '../components/layout/Footer'
+import { Navbar } from '../components/layout/Navbar'
+export function LandingPage(){return <><Navbar/><main><Hero/><Benefits/><BudgetTransparency/><PerformancePreview/><PricingExplorer/><HowItWorks/><FinalCTA/></main><Footer/></>}
