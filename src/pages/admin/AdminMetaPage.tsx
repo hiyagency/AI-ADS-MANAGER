@@ -286,7 +286,7 @@ export function AdminMetaPage() {
         })}
       </section>
 
-      {!connectedAccounts.length && <div className="admin-list-empty"><RadioTower /><strong>No Meta account mappings</strong><p>The integration is prepared locally. Account discovery becomes operational after server credentials are added during the later activation phase.</p></div>}
+      {!connectedAccounts.length && <div className="admin-list-empty"><RadioTower /><strong>No Meta account mappings</strong><p>Add the server-only Meta values from the setup guide, verify the credential, then connect each ad account to its client workspace.</p></div>}
       <section className="admin-policy-note"><ShieldCheck size={18} /><div><strong>Read-only, server-only connection</strong><p>Meta Graph requests are performed only by protected Netlify functions. Browser sessions receive sanitized account metadata and reporting values, never credentials.</p><small>Missing permissions, token expiry, account restrictions, rate limiting, and partial data fail closed into visible health states.</small></div></section>
       {editing && <MetaAccountEditor clients={data.clients} account={editing === 'new' ? null : editing} onClose={() => setEditing(null)} onSaved={(message) => void saved(message)} />}
     </div>

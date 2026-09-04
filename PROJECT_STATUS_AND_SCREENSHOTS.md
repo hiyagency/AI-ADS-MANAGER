@@ -2,27 +2,27 @@
 
 Audit date: 4 September 2026
 
-> The screenshots in this document use safe local demonstration data. They do not contain real clients, Supabase records, Meta accounts, or live advertising results. No external service was contacted while producing them.
+> The screenshots in this document use safe demonstration data. They do not contain real clients, Meta accounts, or live advertising results.
 
 ## Simple project summary
 
-The application is substantially built as local code. The public website, secure role model, HIY admin panels, offer and billing engine, client dashboard, Meta reporting integration, and six-hour synchronization worker all exist.
+The application is built and deployed. The public website, secure role model, HIY admin panels, offer and billing engine, client dashboard, Meta reporting integration, and six-hour synchronization worker are in production code. The hosted Supabase schema has passed 146 database assertions and contains the seven approved 31-day offers.
 
-The main work left is to connect the correct accounts, apply and test the database, add production credentials, verify real Meta figures, deploy, and connect `ads.hiy.agency`.
+The remaining account-owner work is operational onboarding: finish DNS/SSL, create the first Auth administrator, add the server-only Supabase and Meta credentials, connect real clients, and reconcile their first Meta sync. These steps require HIY's private account access and are documented in `META_SETUP_README.md`.
 
 ## Current phase status
 
 | Phase | Current status | What is still required |
 |---|---|---|
-| 1. Public website | Built locally | Final production browser and mobile smoke test |
-| 2. Supabase and authentication | Schema, Auth flow, roles, and tenant RLS are built locally | Connect the correct project, apply migrations, run database tests, configure Auth and email |
-| 3. HIY Admin | All planned admin panels are built locally | Verify invitations and all mutations against the hosted database |
-| 4. Offers and pricing | Built locally | Verify the seven packages, custom offers, frozen assignments, and payment ledger against hosted PostgreSQL |
-| 5. Client dashboard | Built locally | Verify tenant isolation and dashboard calculations with hosted client data |
-| 6. Meta Marketing API | Built locally | Add real server credentials, connect one test ad account, and reconcile figures against Meta Ads Manager |
-| 7. Automatic synchronization | Scheduler, background worker, locks, retries, logs, and upserts exist locally | Deploy and observe real six-hour synchronization jobs |
-| 8. Production deployment | Not activated | Configure Supabase and Netlify, deploy a preview, complete production QA, monitoring, backups, and rollback preparation |
-| 9. Production domain | Not started | Connect `ads.hiy.agency`, issue SSL, update redirect/callback URLs, and run final domain tests |
+| 1. Public website | Deployed | Final custom-domain smoke test after DNS resolves |
+| 2. Supabase and authentication | Schema and RLS deployed and tested | Configure Auth URLs/email and create the first administrator |
+| 3. HIY Admin | Deployed | Verify the first real invitation and hosted mutations |
+| 4. Offers and pricing | Deployed | Seven offers are live; onboard real assignments and payments |
+| 5. Client dashboard | Deployed | Verify with the first two tenant-isolated client logins |
+| 6. Meta Marketing API | Deployed but disabled | Add private credentials and reconcile one controlled ad account |
+| 7. Automatic synchronization | Deployed with a safe activation switch | Enable only after manual Meta reconciliation |
+| 8. Production deployment | Released on Netlify | Complete authenticated role QA after the first users exist |
+| 9. Production domain | Assigned in Netlify | Add/verify Hostinger CNAME and wait for SSL issuance |
 
 ## What is already working in the code
 
@@ -41,24 +41,18 @@ The main work left is to connect the correct accounts, apply and test the databa
 - Six-hour synchronization dispatch, per-account isolation, incremental lookback, and sync history.
 - Responsive layouts, loading states, empty states, error states, and branded 404 page.
 
-## Required work before clients can use it
+## Required account-owner onboarding before clients can use it
 
 Complete these steps in order:
 
-1. Create a safe source-control checkpoint. The current workspace has no tracked project baseline, so the full working project should be committed before production configuration begins.
-2. Sign into the correct Supabase organization and select the real Ads Manager project.
-3. Link the project and apply all six SQL migrations in timestamp order.
-4. Run the pgTAP database tests, RLS isolation tests, and Supabase security/performance advisors.
-5. Configure Supabase Site URL, redirect allowlist, invitation email, password recovery, SMTP, and disable unwanted public sign-up.
-6. Create and promote the first real HIY administrator.
-7. Deploy a Netlify preview with the required browser-safe and server-only environment variables.
-8. Test the complete admin workflow against hosted data: create client, invite login, assign offer, record payment, connect Meta, and synchronize.
-9. Add the real HIY Meta system-user reporting token and app-access token only to the server environment.
-10. Connect one controlled Meta ad account and compare spend, dates, campaigns, attribution, and results with Meta Ads Manager.
-11. Enable the six-hour schedule only after the manual comparison is correct. Observe retries, expiry warnings, logs, and multi-client isolation.
-12. Complete deploy-preview QA on desktop and mobile, including login, redirects, every panel, empty/error states, console errors, and security headers.
-13. Enable backups and monitoring, document privacy/retention, and confirm rollback procedures.
-14. Publish production, connect the Hostinger `ads` CNAME to Netlify, verify SSL, and update Supabase and Meta callbacks for `https://ads.hiy.agency`.
+1. In Hostinger, make `ads` a CNAME to `adsmanage.netlify.app`; wait for Netlify SSL.
+2. Configure Supabase Site URL, redirect allowlist, invitation email, password recovery, SMTP, and disable unwanted public sign-up.
+3. Create and promote the first real HIY administrator.
+4. Add `SUPABASE_SECRET_KEY` directly to Netlify so protected invitations can create client logins.
+5. Test the hosted admin workflow: create client, invite login, assign offer, record payment, and verify tenant isolation with two users.
+6. Follow `META_SETUP_README.md` to add Meta values, connect one controlled account, and reconcile it with Meta Ads Manager.
+7. Change `META_SYNC_ENABLED` to `true` only after the manual comparison passes, then observe the first scheduled run.
+8. Complete authenticated desktop/mobile QA for both roles on `https://ads.hiy.agency`.
 
 ## Expected final output
 

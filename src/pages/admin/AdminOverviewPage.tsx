@@ -22,7 +22,7 @@ export function AdminOverviewPage() {
     <div className="admin-page">
       <header className="admin-page-head">
         <div>
-          <p className="eyebrow"><span />HIY OPERATIONS · PHASE 4–7 READY</p>
+          <p className="eyebrow"><span />HIY OPERATIONS · COMMAND CENTER</p>
           <h1>Performance command center</h1>
           <p>Control client access, commercial agreements, payments, Meta mappings, and synchronization health.</p>
         </div>

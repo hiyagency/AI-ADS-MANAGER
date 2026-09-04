@@ -9,7 +9,7 @@ export function Footer() {
         <div className="footer__signal"><span />CAMPAIGN SIGNAL: READY</div>
         <nav aria-label="Footer navigation"><Link to="/login">Client Login</Link><a href="https://hiy.agency" target="_blank" rel="noreferrer">HIY Agency</a></nav>
       </div>
-      <div className="container-shell footer__base"><span>© {new Date().getFullYear()} HIY AGENCY</span><span>ADS MANAGER · PHASE 3</span></div>
+      <div className="container-shell footer__base"><span>© {new Date().getFullYear()} HIY AGENCY</span><span>ADS MANAGER · CLIENT PORTAL</span></div>
     </footer>
   )
 }
